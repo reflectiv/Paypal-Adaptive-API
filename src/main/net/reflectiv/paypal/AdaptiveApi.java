@@ -92,6 +92,10 @@ public enum AdaptiveApi {
 		// Transform response as a Java Object
 		try {
 			IAdaptiveResponse detailsResponse = parser.fromJson(response, (Class) to);
+			
+			if (detailsResponse == null)
+				throw new NullPointerException();
+			
 			if (detailsResponse.getResponseEnvelope().getAck().equals(AckCode.Failure) || detailsResponse.getResponseEnvelope().getAck().equals(AckCode.FailureWithWarning))
 				throw new JsonParseException("");
 

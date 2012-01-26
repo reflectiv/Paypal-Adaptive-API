@@ -20,7 +20,7 @@ public class PaymentDetailsResponse implements IAdaptiveResponse {
 	private String cancelUrl;
 	private String currencyCode;
 	private FeesPayer feesPayer;
-	private List<FundingType> fundingType;
+	private HashMap<String, List<FundingType>> fundingtypeList;
 	private String ipnNotificationUrl;
 	private String memo;
 	private String payKey;
@@ -32,6 +32,7 @@ public class PaymentDetailsResponse implements IAdaptiveResponse {
 	private SenderIdentifier sender;
 	private String senderEmail;
 	private Status status;
+	private String trackingId;
 
 	public PaymentDetailsResponse() {
 		paymentInfoList = new HashMap<String, List<PaymentInfo>>(1);
@@ -94,19 +95,19 @@ public class PaymentDetailsResponse implements IAdaptiveResponse {
 	public void setFeesPayer(FeesPayer feesPayer) {
 		this.feesPayer = feesPayer;
 	}
-
+	
 	/**
-	 * @return the fundingType
+	 * @return the fundingtypeList
 	 */
-	public List<FundingType> getFundingType() {
-		return fundingType;
+	public HashMap<String, List<FundingType>> getFundingtypeList() {
+		return fundingtypeList;
 	}
 
 	/**
-	 * @param fundingType the fundingType to set
+	 * @param fundingtypeList the fundingtypeList to set
 	 */
-	public void setFundingType(List<FundingType> fundingType) {
-		this.fundingType = fundingType;
+	public void setFundingtypeList(HashMap<String, List<FundingType>> fundingtypeList) {
+		this.fundingtypeList = fundingtypeList;
 	}
 
 	/**
@@ -262,5 +263,19 @@ public class PaymentDetailsResponse implements IAdaptiveResponse {
 	 */
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	/**
+	 * @return the trackingId
+	 */
+	public String getTrackingId() {
+		return trackingId;
+	}
+
+	/**
+	 * @param trackingId the trackingId to set
+	 */
+	public void setTrackingId(String trackingId) {
+		this.trackingId = trackingId;
 	}
 }
