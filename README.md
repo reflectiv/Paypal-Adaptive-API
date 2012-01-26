@@ -20,42 +20,48 @@ My main goal was this lib to be as simple as possible. So all you need to do, is
 
 Something like :
 
-    HashMap<String, String> headers = new HashMap<String, String>();
-    headers.put("X-PAYPAL-SECURITY-USERID",    "Your Paypal User ID");
-    headers.put("X-PAYPAL-SECURITY-PASSWORD",  "Your Paypal Password");
-    headers.put("X-PAYPAL-SECURITY-SIGNATURE", "Your Paypal Signature");
-    headers.put("X-PAYPAL-APPLICATION-ID",     "Your-Application-ID");
+```java
+HashMap<String, String> headers = new HashMap<String, String>();
+headers.put("X-PAYPAL-SECURITY-USERID",    "Your Paypal User ID");
+headers.put("X-PAYPAL-SECURITY-PASSWORD",  "Your Paypal Password");
+headers.put("X-PAYPAL-SECURITY-SIGNATURE", "Your Paypal Signature");
+headers.put("X-PAYPAL-APPLICATION-ID",     "Your-Application-ID");
 
-    AdaptiveApi.INSTANCE.setHeaders(headers);
-    AdaptiveApi.INSTANCE.setProduction(false);
+AdaptiveApi.INSTANCE.setHeaders(headers);
+AdaptiveApi.INSTANCE.setProduction(false);
+```
 
 Now, the fun part !
 
 ## Create a payment:
 
-    PayRequest request = new PayRequest(ActionType.PAY, "USD", "http://www.mywebsite.com/paypal/return", "http://www.mywebsite.com/paypal/cancel");
-    request.addReceiver(new Receiver("email@example.com", 15d));
-		
-    // in case of a chained payment
-    request.addReceiver(new Receiver("other@example.com", 25d, true));
-		
-    // just not set true to have a parallel payment.
+```java
+PayRequest request = new PayRequest(ActionType.PAY, "USD", "http://www.mywebsite.com/paypal/return", "http://www.mywebsite.com/paypal/cancel");
+request.addReceiver(new Receiver("email@example.com", 15d));
 
-    // And then, send the request :
-    // Be careful, send() throws ProtocolException, IOException, PPFaultMessage
-    PayResponse response = request.send();
+// in case of a chained payment
+request.addReceiver(new Receiver("other@example.com", 25d, true));
+		
+// just not set true to have a parallel payment.
 
-    // That's easy ! :)
+// And then, send the request :
+// Be careful, send() throws ProtocolException, IOException, PPFaultMessage
+PayResponse response = request.send();
+
+// That's easy ! :)
+```
 
 ## Get the details of a payment:
 
-    PaymentDetailsRequest request = new PaymentDetailsRequest();
-    request.setPayKey("AP-123456789ABCDEFGHI");
-    // or you can set a TrackingId or a TransactionID, or all of them, depending of your needs
+```java
+PaymentDetailsRequest request = new PaymentDetailsRequest();
+request.setPayKey("AP-123456789ABCDEFGHI");
+// or you can set a TrackingId or a TransactionID, or all of them, depending of your needs
 
-    PaymentDetailsResponse response = request.send(); // BAM! Easy!
+PaymentDetailsResponse response = request.send(); // BAM! Easy!
 
-    // Check the response to see how the payment goes.
+// Check the response to see how the payment goes.
+```
 
 # What is PPFaultMessage thrown ?
 
